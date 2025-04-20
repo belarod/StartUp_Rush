@@ -5,9 +5,9 @@ from models.battle import Battle
 
 class Tournament:
     def __init__(self):
-        self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#TODO test 8
+        #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#TODO test 8
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7]#TODO test impar
-        #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
+        self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
         #self.startups = [self.startup1, self.startup2, self.startup3] #TODO test -4 registradas
         self.battles = []
         self.winner = []

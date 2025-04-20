@@ -3,6 +3,8 @@ from utils.utils import Utils
 from models.tournament import Tournament
 from models.startup import StartUp
 from models.battle import Battle
+from models.startup_events import StartUpEvents
+from models.startup import StartUp
 
 class App:
     _instance = None
@@ -17,6 +19,7 @@ class App:
         if not self._initialized:
             self._initialized = True
             self.tournament = Tournament()
+            self.startup_events = StartUpEvents()
             self.current_battle = None
     
     def start_app(self):
@@ -123,35 +126,34 @@ class App:
         
     def show_startup_evaluation_menu(self, startup:StartUp):
         Tournament.show_tournament_title()
-        Option.add_title_of_menu(f"Avaliação da StartUp {startup.name}")
+        Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
         
-        Option.add_option(1, "Pitch convinvente: +6 pontos")
-        Option.add_option(2, "Produto com bugs: -4 pontos")
-        Option.add_option(3, "Boa tração de usuários: +3 pontos")
-        Option.add_option(4, "Investidor irritado: -6 pontos")
-        Option.add_option(5, "Fake news no pitch: -8 pontos")
+        events = StartUpEvents.list_startup_events(self.startup_events)
+        count = 1
+        for event in events:
+            Option.add_option(count, str(event))
+            count += 1
         Option.add_option(6, "Voltar ao gerenciamento da batalha")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
-    
         if chosen_option == 1:
-            print(f"\033[1;32m{startup.name} ganhou 6 pontos!\033[0m")#TODO
+            StartUp.did_convincing_pitch(startup)
             Utils.sleep(2)
             self.show_startup_evaluation_menu(startup)
         if chosen_option == 2:
-            print(f"\033[1;31m{startup.name} perdeu 4 pontos!\033[0m")#TODO
+            StartUp.did_product_with_bugs(startup)
             Utils.sleep(2)
             self.show_startup_evaluation_menu(startup)
         if chosen_option == 3:
-            print(f"\033[1;32m{startup.name} ganhou 3 pontos!\033[0m")#TODO
+            StartUp.did_good_user_traction(startup)
             Utils.sleep(2)
             self.show_startup_evaluation_menu(startup)
         if chosen_option == 4:
-            print(f"\033[1;31m{startup.name} perdeu 6 pontos!\033[0m")#TODO
+            StartUp.did_angry_investors(startup)
             Utils.sleep(2)
             self.show_startup_evaluation_menu(startup)
         if chosen_option == 5:
-            print(f"\033[1;31m{startup.name} perdeu 8 pontos!\033[0m")#TODO
+            StartUp.did_pitch_with_fake_news(startup)
             Utils.sleep(2)
             self.show_startup_evaluation_menu(startup)
         if chosen_option == 6:
