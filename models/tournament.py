@@ -1,3 +1,4 @@
+from utils.utils import Utils
 from models.startup import StartUp
 
 class Tournament:
@@ -31,6 +32,13 @@ class Tournament:
             return True
         else:
             return False
+        
+    @staticmethod
+    def show_tournament_title():
+        Utils.clear_screen()
+        print("\033[92m=========================\033[0m")
+        print("\033[94m      STARTUP RUSH!\033[0m")
+        print("\033[92m=========================\033[0m")
             
 tournament = Tournament()
 tournament.register_startup(StartUp("Startup 1", "Inovação", 2023))

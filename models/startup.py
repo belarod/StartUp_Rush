@@ -1,3 +1,5 @@
+from utils.utils import Utils
+
 class StartUp:
     def __init__(self,
                 name:str,
@@ -20,3 +22,19 @@ class StartUp:
         self.quantity_of_occurrence_user_traction = quantity_of_occurrence_user_traction
         self.quantity_of_occurrence_angry_investors = quantity_of_occurrence_angry_investors
         self.quantity_of_occurrence_pitches_with_fakenews = quantity_of_occurrence_pitches_with_fakenews
+        
+    @staticmethod
+    def input_startup_name():
+        name = input("Nome: ")
+        return name
+    
+    @staticmethod
+    def input_startup_slogan():
+        slogan = input("Slogan: ")
+        return slogan
+    
+    @staticmethod
+    def input_startup_year_of_foundation():
+        year_of_foundation = Utils.int_input("Ano de fundação (YYYY): ")
+        return year_of_foundation
+    

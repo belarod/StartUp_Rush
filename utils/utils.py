@@ -18,3 +18,22 @@ class Utils:
             os.system(f"timeout {seconds}")
         else:
             pass
+        
+    @staticmethod    
+    def int_input(msg):
+        valid_option = False
+        result = None
+        
+        while not valid_option:
+            try:
+                value = input(msg)
+                result = int(value)
+                valid_option = True
+                
+                if result < 0:
+                    valid_option = False
+                else:
+                    valid_option = True
+            except:
+                continue
+        return result

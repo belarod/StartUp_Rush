@@ -9,27 +9,23 @@ class Option:
         
     @staticmethod
     def choose_option(msg):
-        while True:
-            try:
-                option = int(input(msg))
-                if option > 0:
-                    return option
-                else:
-                    print('Digite um número positivo.')
-            except:
-                print('Digite o número correspondente do menu numérico.')
+        option = int(input(msg))
+        if option > 0 and option in range(1, len(Option.list_options) + 1):
+            return option
+        else:
+            print('Digite um número correspondente do menu numérico.')
+            return Option.choose_option(msg)
+
     
     @staticmethod
     def add_option(index, msg):
         option = Option(index, msg)
-        option.list_options.append(option)
+        Option.list_options.append(option)
         
-        print(f'{index}. {msg}')
-    
+        print(f'\033[1;32m{index}.\033[0m \033[94m{msg}\033[0m')
+        
     @staticmethod
-    def analyze_option(option):
-        if option in range(1, len(Option.list_options) + 1):
-            return option
-        else:
-            print('Opção inválida.')
-            Option.choose_option('Escolha uma opção: ')
+    def add_title_of_menu(title):
+        print(f"\033[93m{title}\033[0m")
+        
+Option.add_title_of_menu("oi")
