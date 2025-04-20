@@ -14,6 +14,3 @@ class Battle:
         for battle in Battle.battles:
             print(Battle.battles[index])
             index += 1
-
-    def manage_battle():
-        pass

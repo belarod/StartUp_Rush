@@ -19,8 +19,8 @@ class App:
             self.tournament = Tournament()
     
     def start_app(self):
-        self.show_initializing_menu() 
-        #self.show_manage_startups_menu() #teste
+        #self.show_initializing_menu() 
+        self.show_manage_startups_menu() #teste
         #self.show_register_startup_menu() #teste
         
     def exit_app(self):
@@ -96,10 +96,19 @@ class App:
                 count += 1
                 
             chosen_option = Option.choose_option("Escolha a batalha a ser gerenciada: ")
-            #Battle.manage_battle()
+            App.show_battle_management_menu(battles[chosen_option - 1])
         else:
             print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
             Utils.sleep(2)
-            self.show_manage_startups_menu()        
+            self.show_manage_startups_menu()
+            
+    def show_battle_management_menu(battle:Battle):
+        Tournament.show_tournament_title()
         
+        startup1 = battle.startup1
+        startup2 = battle.startup2
+        Option.add_title_of_menu(f"{startup1.name} vs {startup2.name}")
+        Option.add_option(1, f"{startup1.name}")
+        Option.add_option(2, f"{startup2.name}")
+        Option.choose_option("Escolha uma StartUp a ser avaliada: ")
         
