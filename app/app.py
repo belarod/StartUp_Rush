@@ -17,6 +17,7 @@ class App:
         if not self._initialized:
             self._initialized = True
             self.tournament = Tournament()
+            self.current_battle = None
     
     def start_app(self):
         #self.show_initializing_menu() 
@@ -96,19 +97,62 @@ class App:
                 count += 1
                 
             chosen_option = Option.choose_option("Escolha a batalha a ser gerenciada: ")
-            App.show_battle_management_menu(battles[chosen_option - 1])
+            self.current_battle = battles[chosen_option - 1]
+            self.show_battle_management_menu()
         else:
             print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
             Utils.sleep(2)
             self.show_manage_startups_menu()
             
-    def show_battle_management_menu(battle:Battle):
+    def show_battle_management_menu(self):
         Tournament.show_tournament_title()
         
-        startup1 = battle.startup1
-        startup2 = battle.startup2
+        startup1 = self.current_battle.startup1
+        startup2 = self.current_battle.startup2
         Option.add_title_of_menu(f"{startup1.name} vs {startup2.name}")
         Option.add_option(1, f"{startup1.name}")
         Option.add_option(2, f"{startup2.name}")
-        Option.choose_option("Escolha uma StartUp a ser avaliada: ")
+        Option.add_option(3, "Encerrar avaliação da batalha")
+        chosen_option = Option.choose_option("Escolha uma StartUp a ser avaliada: ")
+        if chosen_option == 1:
+            self.show_startup_evaluation_menu(startup1)
+        if chosen_option == 2:
+            self.show_startup_evaluation_menu(startup2)
+        if chosen_option == 3:
+            pass #TODO
         
+    def show_startup_evaluation_menu(self, startup:StartUp):
+        Tournament.show_tournament_title()
+        Option.add_title_of_menu(f"Avaliação da StartUp {startup.name}")
+        
+        Option.add_option(1, "Pitch convinvente: +6 pontos")
+        Option.add_option(2, "Produto com bugs: -4 pontos")
+        Option.add_option(3, "Boa tração de usuários: +3 pontos")
+        Option.add_option(4, "Investidor irritado: -6 pontos")
+        Option.add_option(5, "Fake news no pitch: -8 pontos")
+        Option.add_option(6, "Voltar ao gerenciamento da batalha")
+        
+        chosen_option = Option.choose_option("Escolha uma opção: ")
+    
+        if chosen_option == 1:
+            print(f"\033[1;32m{startup.name} ganhou 6 pontos!\033[0m")#TODO
+            Utils.sleep(2)
+            self.show_startup_evaluation_menu(startup)
+        if chosen_option == 2:
+            print(f"\033[1;31m{startup.name} perdeu 4 pontos!\033[0m")#TODO
+            Utils.sleep(2)
+            self.show_startup_evaluation_menu(startup)
+        if chosen_option == 3:
+            print(f"\033[1;32m{startup.name} ganhou 3 pontos!\033[0m")#TODO
+            Utils.sleep(2)
+            self.show_startup_evaluation_menu(startup)
+        if chosen_option == 4:
+            print(f"\033[1;31m{startup.name} perdeu 6 pontos!\033[0m")#TODO
+            Utils.sleep(2)
+            self.show_startup_evaluation_menu(startup)
+        if chosen_option == 5:
+            print(f"\033[1;31m{startup.name} perdeu 8 pontos!\033[0m")#TODO
+            Utils.sleep(2)
+            self.show_startup_evaluation_menu(startup)
+        if chosen_option == 6:
+            self.show_battle_management_menu()
