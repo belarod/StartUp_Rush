@@ -16,6 +16,7 @@ class App:
         if not self._initialized:
             #self.db = db
             self._initialized = True
+            self.tournament = Tournament()
     
     def start_app(self):
         #self.show_initializing_menu() 
@@ -41,6 +42,8 @@ class App:
     def show_manage_startups_menu(self): #TODO métodos redirecionados
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Gerenciamento de StartUps")
+        Tournament.show_list_startups(self.tournament)
+        
         Option.add_option(1, "Cadastrar StartUp")
         Option.add_option(2, "Remover StartUp")
         Option.add_option(3, "Iniciar Torneio")
@@ -48,7 +51,7 @@ class App:
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
         if chosen_option == 1:
-            pass 
+            self.show_register_startup_menu() 
         if chosen_option == 2:
             pass
         if chosen_option == 3:
@@ -60,6 +63,12 @@ class App:
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Cadastro da StartUp")
         
-        StartUp.input_startup_name()
-        StartUp.input_startup_slogan()
-        StartUp.input_startup_year_of_foundation()
+        name = StartUp.input_startup_name()
+        slogan = StartUp.input_startup_slogan()
+        year_of_foundation = StartUp.input_startup_year_of_foundation()
+        
+        startup = StartUp(name, slogan, year_of_foundation)
+        Tournament.register_startup(self.tournament, startup)
+        Utils.sleep(2)
+        self.show_manage_startups_menu()
+        

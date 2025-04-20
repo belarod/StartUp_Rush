@@ -36,5 +36,7 @@ class StartUp:
     @staticmethod
     def input_startup_year_of_foundation():
         year_of_foundation = Utils.int_input("Ano de fundação (YYYY): ")
+        if len(str(year_of_foundation)) != 4:
+            return StartUp.input_startup_year_of_foundation()
         return year_of_foundation
     
