@@ -2,6 +2,7 @@ from utils.option import Option
 from utils.utils import Utils
 from models.tournament import Tournament
 from models.startup import StartUp
+from models.battle import Battle
 
 class App:
     _instance = None
@@ -46,17 +47,17 @@ class App:
         Tournament.show_list_startups(self.tournament)
         
         Option.add_option(1, "Cadastrar StartUp")
-        Option.add_option(2, "Remover StartUp") #TODO
-        Option.add_option(3, "Iniciar Torneio") #TODO
+        Option.add_option(2, "Remover StartUp") 
+        Option.add_option(3, "Iniciar Torneio")
         Option.add_option(4, "Voltar ao menu inicial")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
         if chosen_option == 1:
             self.show_register_startup_menu() 
         if chosen_option == 2:
-            pass
+            self.show_remove_startup_menu()
         if chosen_option == 3:
-            pass
+            self.show_tournament_menu()
         if chosen_option == 4:
             self.show_initializing_menu()
             
@@ -72,4 +73,33 @@ class App:
         Tournament.register_startup(self.tournament, startup)
         Utils.sleep(2)
         self.show_manage_startups_menu()
+        
+    def show_remove_startup_menu(self):
+        Tournament.show_tournament_title()
+        Option.add_title_of_menu("Remoção da StartUp")
+        Tournament.show_list_startups(self.tournament)
+        
+        index = Option.choose_option("Escolha uma opção: ")
+        Tournament.remove_startup(self.tournament, index)
+        Utils.sleep(2)
+        self.show_manage_startups_menu()
+        
+    def show_tournament_menu(self):
+        if Tournament.is_registered_startups_even(self.tournament) and len(self.tournament) >= 4 and len(self.tournament) <= 8:
+            Tournament.show_tournament_title()
+            Option.add_title_of_menu("Torneio")
+            
+            battles = Tournament.generate_battle_pairs(self.tournament)
+            count = 1
+            for battle in battles:
+                Option.add_option(count, str(battle))
+                count += 1
+                
+            chosen_option = Option.choose_option("Escolha a batalha a ser gerenciada: ")
+            #Battle.manage_battle()
+        else:
+            print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
+            Utils.sleep(2)
+            self.show_manage_startups_menu()        
+        
         

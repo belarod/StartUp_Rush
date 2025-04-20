@@ -7,10 +7,10 @@ class Option:
         self.option = option
         self.msg = msg
         
-    @staticmethod
     def choose_option(msg):
         option = int(input(msg))
         if option > 0 and option in range(1, len(Option.list_options) + 1):
+            Option.list_options.clear()
             return option
         else:
             print('Digite um número correspondente do menu numérico.')
