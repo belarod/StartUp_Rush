@@ -10,13 +10,7 @@ class Tournament:
         return len(self.startups)
        
     def list_startups(self):
-        if len(self.startups) == 0:
-            print("Nenhuma startup registrada.")
-        else:
-            startup_names = []
-            for startup in self.startups:
-                startup_names.append(startup.name)
-            print(f"Startups registradas:{startup_names}")
+        return self.startups
             
     def show_list_startups(self):
         for startup in self.startups:

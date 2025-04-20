@@ -14,20 +14,21 @@ class App:
     
     def __init__(self):
         if not self._initialized:
-            #self.db = db
             self._initialized = True
             self.tournament = Tournament()
     
     def start_app(self):
-        #self.show_initializing_menu() 
+        self.show_initializing_menu() 
         #self.show_manage_startups_menu() #teste
-        self.show_register_startup_menu() #teste
+        #self.show_register_startup_menu() #teste
         
     def exit_app(self):
         print("Saindo do aplicativo...")
+        Utils.sleep(2)
+        Utils.clear_screen()
         exit(0)
         
-    def show_initializing_menu(self): #TODO métodos redirecionados
+    def show_initializing_menu(self):
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Bem-vindo, Administrador!")
         Option.add_option(1, "Gerenciamento de StartUps")
@@ -39,14 +40,14 @@ class App:
         if chosen_option == 2:
             self.exit_app() 
                 
-    def show_manage_startups_menu(self): #TODO métodos redirecionados
+    def show_manage_startups_menu(self):
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Gerenciamento de StartUps")
         Tournament.show_list_startups(self.tournament)
         
         Option.add_option(1, "Cadastrar StartUp")
-        Option.add_option(2, "Remover StartUp")
-        Option.add_option(3, "Iniciar Torneio")
+        Option.add_option(2, "Remover StartUp") #TODO
+        Option.add_option(3, "Iniciar Torneio") #TODO
         Option.add_option(4, "Voltar ao menu inicial")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
