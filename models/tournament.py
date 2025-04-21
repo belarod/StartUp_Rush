@@ -15,6 +15,7 @@ class Tournament:
         #self.startups = [self.startup1, self.startup2, self.startup3] #TODO test -4 registradas
         self.battles = []
         self.winner = [] #TODO
+        self.round_in_progress = False
         
     startup1 = StartUp("Startup 1", "Slogan 1", 2020)
     startup2 = StartUp("Startup 2", "Slogan 2", 2021)  
@@ -67,11 +68,15 @@ class Tournament:
             return False
             
     def generate_battle_pairs(self): #TODO
+        if self.round_in_progress:
+            return self.battles  # Não gera novas batalhas se a rodada estiver em andamento
+    
         random.shuffle(self.startups)
         for startup_index in range(0, len(self.startups), 2):
             if startup_index + 1 < len(self.startups):
                 battle = Battle.create_battle(self.startups[startup_index], self.startups[startup_index + 1])
                 self.battles.append(battle)
+        self.round_in_progress = True
         return self.battles
     
     def calculate_battle_winner(self, battle:Battle):
@@ -93,9 +98,7 @@ class Tournament:
             
             print(f"\033[92m{startup2.name} venceu!\033[0m")
         
-        for battle in self.battles:
-            if battle.get_tuple() == battle.get_tuple():
-                self.battles.remove(battle)
+        self.battles = list(filter(lambda b: b != battle, self.battles))
         
     def show_existing_battles(self):#TODO
         count = 1
