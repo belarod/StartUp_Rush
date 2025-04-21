@@ -8,9 +8,8 @@ class Battle:
         
     def __str__(self):
         return f"\033[91m{self.startup1.name} vs {self.startup2.name}\033[0m"
-        
-    def show_list_battles():
-        index = 0
-        for battle in Battle.battles:
-            print(Battle.battles[index])
-            index += 1
+            
+    @staticmethod
+    def create_battle(startup1:StartUp, startup2:StartUp):
+        battle = Battle(startup1, startup2)
+        return battle

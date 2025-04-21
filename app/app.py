@@ -19,7 +19,6 @@ class App:
         if not self._initialized:
             self._initialized = True
             self.tournament = Tournament()
-            self.startup_events = StartUpEvents()
             self.current_battle = None
     
     def start_app(self):
@@ -81,7 +80,7 @@ class App:
     def show_remove_startup_menu(self):
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Remoção da StartUp")
-        Tournament.show_list_startups(self.tournament)
+        Tournament.show_startups_list_of_options(self.tournament)
         
         index = Option.choose_option("Escolha uma opção: ")
         Tournament.remove_startup(self.tournament, index)
@@ -128,33 +127,17 @@ class App:
         Tournament.show_tournament_title()
         Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
         
-        events = StartUpEvents.list_startup_events(self.startup_events)
-        count = 1
-        for event in events:
-            Option.add_option(count, str(event))
-            count += 1
+        StartUpEvents.create_event(1, "Pitch convincente", 6)
+        StartUpEvents.create_event(2, "Produto com bugs", -4)
+        StartUpEvents.create_event(3, "Boa tração de usuários", 3)
+        StartUpEvents.create_event(4, "Investidores irritados", -6)
+        StartUpEvents.create_event(5, "Pitch com fake news", -8)
         Option.add_option(6, "Voltar ao gerenciamento da batalha")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
-        if chosen_option == 1:
-            StartUp.did_convincing_pitch(startup)
-            Utils.sleep(2)
-            self.show_startup_evaluation_menu(startup)
-        if chosen_option == 2:
-            StartUp.did_product_with_bugs(startup)
-            Utils.sleep(2)
-            self.show_startup_evaluation_menu(startup)
-        if chosen_option == 3:
-            StartUp.did_good_user_traction(startup)
-            Utils.sleep(2)
-            self.show_startup_evaluation_menu(startup)
-        if chosen_option == 4:
-            StartUp.did_angry_investors(startup)
-            Utils.sleep(2)
-            self.show_startup_evaluation_menu(startup)
-        if chosen_option == 5:
-            StartUp.did_pitch_with_fake_news(startup)
-            Utils.sleep(2)
-            self.show_startup_evaluation_menu(startup)
         if chosen_option == 6:
             self.show_battle_management_menu()
+        else:
+            StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1])
+            self.show_startup_evaluation_menu(startup)
+            

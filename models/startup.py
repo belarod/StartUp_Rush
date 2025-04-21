@@ -24,6 +24,8 @@ class StartUp:
         self.quantity_of_occurrence_angry_investors = quantity_of_occurrence_angry_investors
         self.quantity_of_occurrence_pitches_with_fakenews = quantity_of_occurrence_pitches_with_fakenews
         
+        self.events_done = []
+        
     @staticmethod
     def input_startup_name():
         name = input("Nome: ")
@@ -40,33 +42,3 @@ class StartUp:
         if len(str(year_of_foundation)) != 4:
             return StartUp.input_startup_year_of_foundation()
         return year_of_foundation
-    
-    def did_convincing_pitch(startup):
-        startup.score += 6
-        startup.quantity_of_occurrence_pitches += 1
-        print(f"\033[1;32m{startup.name} ganhou 6 pontos!\033[0m")
-        return startup
-    
-    def did_product_with_bugs(startup):
-        startup.score -= 4
-        startup.quantity_of_occurrence_pitches += 1
-        print(f"\033[1;31m{startup.name} perdeu 4 pontos!\033[0m")
-        return startup
-    
-    def did_good_user_traction(startup):
-        startup.score += 3
-        startup.quantity_of_occurrence_user_traction += 1
-        print(f"\033[1;32m{startup.name} ganhou 3 pontos!\033[0m")
-        return startup
-    
-    def did_angry_investors(startup):
-        startup.score -= 6
-        startup.quantity_of_occurrence_user_traction += 1
-        print(f"\033[1;31m{startup.name} perdeu 6 pontos!\033[0m")
-        return startup
-    
-    def did_pitch_with_fake_news(startup):
-        startup.score -= 8
-        startup.quantity_of_occurrence_user_traction += 1
-        print(f"\033[1;31m{startup.name} perdeu 8 pontos!\033[0m")
-        return startup

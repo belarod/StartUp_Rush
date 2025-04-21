@@ -2,6 +2,7 @@ import random
 from utils.utils import Utils
 from models.startup import StartUp
 from models.battle import Battle
+from utils.option import Option
 
 class Tournament:
     def __init__(self):
@@ -10,7 +11,7 @@ class Tournament:
         self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
         #self.startups = [self.startup1, self.startup2, self.startup3] #TODO test -4 registradas
         self.battles = []
-        self.winner = []
+        self.winner = [] #TODO
         
     startup1 = StartUp("Startup 1", "Slogan 1", 2020)
     startup2 = StartUp("Startup 2", "Slogan 2", 2021)  
@@ -31,6 +32,12 @@ class Tournament:
         count = 1
         for startup in self.startups:
             print(f"\033[31m{count}-> {startup.name}\033[0m")
+            count += 1
+            
+    def show_startups_list_of_options(self):
+        count = 1
+        for startup in self.startups:
+            Option.add_option(count, startup.name)
             count += 1
         
     def register_startup(self,
@@ -60,14 +67,9 @@ class Tournament:
         random.shuffle(self.startups)
         for startup_index in range(0, len(self.startups), 2):
             if startup_index + 1 < len(self.startups):
-                battle = self.create_battle(self.startups[startup_index], self.startups[startup_index + 1])
+                battle = Battle.create_battle(self.startups[startup_index], self.startups[startup_index + 1])
                 self.battles.append(battle)
         return self.battles
-    
-    def create_battle(self, startup1:StartUp, startup2:StartUp):#TODO neccessario?
-        battle = Battle(startup1, startup2)
-        return battle
-                
             
     def isThereWinner(self):
         if len(self.startups) == 1:
