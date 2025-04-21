@@ -115,13 +115,19 @@ class App:
         Option.add_option(1, f"{startup1.name}")
         Option.add_option(2, f"{startup2.name}")
         Option.add_option(3, "Encerrar avaliação da batalha")
-        chosen_option = Option.choose_option("Escolha uma StartUp a ser avaliada: ")
+        
+        chosen_option = Option.choose_option("Escolha uma opção: ")
         if chosen_option == 1:
             self.show_startup_evaluation_menu(startup1)
         if chosen_option == 2:
             self.show_startup_evaluation_menu(startup2)
         if chosen_option == 3:
-            pass #TODO
+            Tournament.calculate_battle_winner(self.tournament, self.current_battle)#TODO resultado da batalha
+            self.current_battle = None
+            Utils.sleep(2)
+            self.show_tournament_menu()
+            
+            
         
     def show_startup_evaluation_menu(self, startup:StartUp):
         Tournament.show_tournament_title()
@@ -139,5 +145,5 @@ class App:
             self.show_battle_management_menu()
         else:
             StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1])
-            self.show_startup_evaluation_menu(startup)
+            self.show_startup_evaluation_menu(startup) 
             

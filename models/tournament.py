@@ -3,8 +3,11 @@ from utils.utils import Utils
 from models.startup import StartUp
 from models.battle import Battle
 from utils.option import Option
+from models.startup_events import StartUpEvents
 
 class Tournament:
+    event_shark_fight = StartUpEvents("Shark Fight", 2)
+    
     def __init__(self):
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#TODO test 8
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7]#TODO test impar
@@ -70,13 +73,53 @@ class Tournament:
                 battle = Battle.create_battle(self.startups[startup_index], self.startups[startup_index + 1])
                 self.battles.append(battle)
         return self.battles
+    
+    def calculate_battle_winner(self, battle:Battle):
+        startup1 = battle.startup1
+        startup2 = battle.startup2
+        
+        if startup1.score == startup2.score:
+            self.do_shark_fight(battle)
+            self.calculate_battle_winner(battle)
             
-    def isThereWinner(self):
+        elif startup1.score > startup2.score: 
+            self.remove_startup_loser(startup2)
+            self.add_startup_winner(startup1)
+            
+            print(f"\033[92m{startup1.name} venceu!\033[0m")   
+        elif startup1.score < startup2.score:   
+            self.remove_startup_loser(startup1)
+            self.add_startup_winner(startup2)
+            
+            print(f"\033[92m{startup2.name} venceu!\033[0m")
+        
+        for battle in self.battles:
+            if battle.get_tuple() == battle.get_tuple():
+                self.battles.remove(battle)
+        
+    def show_existing_battles(self):#TODO
+        count = 1
+        for battle in self.battles:
+            Option.add_option(count, str(battle))
+            count += 1
+        return self.battles
+        
+    def do_shark_fight(self, battle:Battle):
+        winner = random.randint(0,1)
+        battle.get_tuple()[winner].score += 2
+            
+    def is_there_winner(self):
         if len(self.startups) == 1:
             self.winner.append(self.startups[0])
             return True
         else:
             return False
+        
+    def remove_startup_loser(self, startup:StartUp):
+        self.startups.remove(startup)
+        
+    def add_startup_winner(self, startup:StartUp):
+        self.startups.append(startup)
         
     @staticmethod
     def show_tournament_title():
