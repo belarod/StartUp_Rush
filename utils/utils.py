@@ -1,5 +1,4 @@
 import os
-#import time
 
 class Utils:
     @staticmethod
@@ -19,7 +18,7 @@ class Utils:
         
     @staticmethod
     def press_to_continue(msg):
-        input(msg)
+        input(f"\033[93m{msg}\033[0m")
         
     @staticmethod    
     def int_input(msg):

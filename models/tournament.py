@@ -1,18 +1,15 @@
 import random
+from utils.option import Option
 from utils.utils import Utils
+
 from models.startup import StartUp
 from models.battle import Battle
-from utils.option import Option
 from models.startup_events import StartUpEvents
 
 class Tournament:
-    event_shark_fight = StartUpEvents("Shark Fight", 2)
-    
     def __init__(self):
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#TODO test 8
-        #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7]#TODO test impar
         self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
-        #self.startups = [self.startup1, self.startup2, self.startup3] #TODO test -4 registradas
         self.battles = []
         self.winner = []
         self.round_in_progress = False
@@ -20,11 +17,11 @@ class Tournament:
     startup1 = StartUp("NeuraTech", "Conectando ideias ao futuro", 2020)
     startup2 = StartUp("AgroPulse", "Tecnologia que cultiva resultados", 2021)  
     startup3 = StartUp("EcoSphere", "Soluções verdes para um mundo melhor", 2022)
-    startup4 = StartUp("ByteBridge", "Ligando inovação e transformação", 2023)  
+    startup4 = StartUp("ByteBridge", "Ligando inovação e transformação", 2021)  
     startup5 = StartUp("NovaMind", "Criando inteligência para o amanhã", 2024)
     startup6 = StartUp("SkyLedger", "Transparência nas alturas", 2025)
-    startup7 = StartUp("HealthSync", "Conectando dados, salvando vidas", 2026)
-    startup8 = StartUp("UrbanFlow", "Mobilidade inteligente, cidades eficientes", 2027)
+    startup7 = StartUp("HealthSync", "Conectando dados, salvando vidas", 2025)
+    startup8 = StartUp("UrbanFlow", "Mobilidade inteligente, cidades eficientes", 2024)
 
     def __len__(self):
         return len(self.startups)
@@ -126,6 +123,7 @@ class Tournament:
     def do_shark_fight(self, battle:Battle):
         shark_winner = random.randint(0,1)
         battle.get_tuple()[shark_winner].score += 2
+        print("\033[31mSHARK FIGHT!!!\033[0m")
             
     def is_there_winner(self):
         if len(self.startups) == 1:

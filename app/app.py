@@ -1,5 +1,6 @@
 from utils.option import Option
 from utils.utils import Utils
+
 from models.tournament import Tournament
 from models.startup import StartUp
 from models.startup_events import StartUpEvents
@@ -8,14 +9,15 @@ class App:
     _instance = None
     _initialized = False
 
-    def __new__(cls):
+    def __new__(cls, db):
         if cls._instance is None:
             cls._instance = super(App, cls).__new__(cls)
         return cls._instance
     
-    def __init__(self):
+    def __init__(self, db):
         if not self._initialized:
             self._initialized = True
+            self.db = db
             self.tournament = Tournament()
             self.current_battle = None
     
@@ -62,7 +64,7 @@ class App:
                 self.show_tournament_menu()
             else:
                 print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
-                Utils.sleep(2)
+                Utils.press_to_continue("Pressione uma tecla para continuar...")
                 self.show_manage_startups_menu()
         if chosen_option == 4:
             self.show_initializing_menu()
@@ -77,7 +79,7 @@ class App:
         
         startup = StartUp(name, slogan, year_of_foundation)
         Tournament.register_startup(self.tournament, startup)
-        Utils.sleep(2)
+        Utils.press_to_continue("Pressione uma tecla para continuar...")
         self.show_manage_startups_menu()
         
     def show_remove_startup_menu(self):
@@ -87,14 +89,11 @@ class App:
         
         index = Option.choose_option("Escolha uma opção: ")
         Tournament.remove_startup(self.tournament, index)
-        Utils.sleep(2)
+        Utils.press_to_continue("Pressione uma tecla para continuar...")
         self.show_manage_startups_menu()
         
     def show_tournament_menu(self):
         if Tournament.is_there_winner(self.tournament):
-            winner = Tournament.get_winner(self.tournament)#TODO resultado da batalha
-            print(f"\033[92mParabéns, {winner.name}! Você venceu o torneio!\033[0m")
-            Utils.sleep(5)
             self.show_tournament_results_menu()
     
         Tournament.show_tournament_title()
@@ -129,7 +128,7 @@ class App:
         if chosen_option == 3:
             Tournament.calculate_battle_winner(self.tournament, self.current_battle)#TODO resultado da batalha
             self.current_battle = None
-            Utils.sleep(2)
+            Utils.press_to_continue("Pressione uma tecla para continuar...")
             self.show_tournament_menu()
             
             
