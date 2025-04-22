@@ -17,6 +17,10 @@ class Utils:
         else:
             pass
         
+    @staticmethod
+    def press_to_continue(msg):
+        input(msg)
+        
     @staticmethod    
     def int_input(msg):
         valid_option = False

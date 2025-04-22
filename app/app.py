@@ -100,6 +100,7 @@ class App:
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Torneio")
         
+        print("Batalhas sorteadas:")
         battles = Tournament.generate_battle_pairs(self.tournament)
         count = 1
         for battle in battles:
@@ -116,8 +117,8 @@ class App:
         startup1 = self.current_battle.startup1
         startup2 = self.current_battle.startup2
         Option.add_title_of_menu(f"{startup1.name} vs {startup2.name}")
-        Option.add_option(1, f"{startup1.name}")
-        Option.add_option(2, f"{startup2.name}")
+        Option.add_option(1, f"{startup1.name} - {startup1.score} pontos")
+        Option.add_option(2, f"{startup2.name} - {startup2.score} pontos")
         Option.add_option(3, "Encerrar avaliação da batalha")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
@@ -154,7 +155,7 @@ class App:
     def show_tournament_results_menu(self):
         winner = Tournament.get_winner(self.tournament)
         Tournament.show_tournament_title()
-        Option.add_title_of_menu(f"->{winner.slogan} // {winner.name} é vencedor!")
+        Option.add_title_of_menu(f"-> {winner.slogan} // {winner.name} é vencedor!")
         
         Option.add_option(1, "Mostrar relatório do torneio")
         Option.add_option(2, "Voltar ao menu inicial")

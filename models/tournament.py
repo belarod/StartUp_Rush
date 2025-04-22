@@ -17,15 +17,15 @@ class Tournament:
         self.winner = []
         self.round_in_progress = False
         
-    startup1 = StartUp("Startup 1", "Slogan 1", 2020)
-    startup2 = StartUp("Startup 2", "Slogan 2", 2021)  
-    startup3 = StartUp("Startup 3", "Slogan 3", 2022)
-    startup4 = StartUp("Startup 4", "Slogan 4", 2023)  
-    startup5 = StartUp("Startup 5", "Slogan 5", 2024)
-    startup6 = StartUp("Startup 6", "Slogan 6", 2025)
-    startup7 = StartUp("Startup 7", "Slogan 7", 2026)
-    startup8 = StartUp("Startup 8", "Slogan 8", 2027)
-        
+    startup1 = StartUp("NeuraTech", "Conectando ideias ao futuro", 2020)
+    startup2 = StartUp("AgroPulse", "Tecnologia que cultiva resultados", 2021)  
+    startup3 = StartUp("EcoSphere", "Soluções verdes para um mundo melhor", 2022)
+    startup4 = StartUp("ByteBridge", "Ligando inovação e transformação", 2023)  
+    startup5 = StartUp("NovaMind", "Criando inteligência para o amanhã", 2024)
+    startup6 = StartUp("SkyLedger", "Transparência nas alturas", 2025)
+    startup7 = StartUp("HealthSync", "Conectando dados, salvando vidas", 2026)
+    startup8 = StartUp("UrbanFlow", "Mobilidade inteligente, cidades eficientes", 2027)
+
     def __len__(self):
         return len(self.startups)
        
@@ -95,10 +95,12 @@ class Tournament:
             self.calculate_battle_winner(battle)
             
         elif startup1.score > startup2.score: 
+            self.won_battle(startup1)
             self.remove_startup_loser(startup2)
             
             print(f"\033[92m{startup1.name} venceu!\033[0m")   
-        elif startup1.score < startup2.score:   
+        elif startup1.score < startup2.score: 
+            self.won_battle(startup2)  
             self.remove_startup_loser(startup1)
             
             print(f"\033[92m{startup2.name} venceu!\033[0m")
@@ -110,6 +112,9 @@ class Tournament:
             
         if len(self.startups) == 1:
             self.winner.append(self.startups[0])
+            
+    def won_battle(self, startup:StartUp):
+        startup.score += 30
         
     def show_existing_battles(self):#TODO
         count = 1

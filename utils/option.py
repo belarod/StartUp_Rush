@@ -30,5 +30,3 @@ class Option:
     @staticmethod
     def add_title_of_menu(title):
         print(f"\033[93m{title}\033[0m")
-        
-Option.add_title_of_menu("oi")
