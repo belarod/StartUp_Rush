@@ -1,4 +1,5 @@
 from utils.utils import Utils
+from tabulate import tabulate
 
 from models.startup_events import StartUpEvents
 
@@ -43,3 +44,34 @@ class StartUp:
         if len(str(year_of_foundation)) != 4:
             return StartUp.input_startup_year_of_foundation()
         return year_of_foundation
+    
+    def table(startups):
+        startups_ordenadas_desc = sorted(startups, key=lambda s: s.score, reverse=True)
+        
+        table_data = []
+        for s in startups_ordenadas_desc:
+            table_data.append([
+                s.name,
+                s.slogan,
+                s.year_of_foundation,
+                s.score,
+                s.quantity_of_occurrence_convincing_pitches,
+                s.quantity_of_occurrence_bugs,
+                s.quantity_of_occurrence_user_traction,
+                s.quantity_of_occurrence_angry_investors,
+                s.quantity_of_occurrence_pitches_with_fakenews
+            ])
+            
+        headers = [
+            "\033[91mNome\033[0m", 
+            "\033[91mSlogan\033[0m", 
+            "\033[91mAno\033[0m", 
+            "\033[91mScore\033[0m", 
+            "\033[91mPitches Convincentes\033[0m", 
+            "\033[91mBugs\033[0m", 
+            "\033[91mTração de Usuários\033[0m", 
+            "\033[91mInvestidores Irritados\033[0m", 
+            "\033[91mFakenews no Pitch\033[0m"
+        ]
+        
+        print(tabulate(table_data, headers=headers, tablefmt="grid"))

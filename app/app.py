@@ -173,11 +173,6 @@ class App:
     def show_startup_evaluation_menu(self, startup:StartUp):
         Tournament.show_tournament_title()
         Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
-        print(f"Quantidade de ocorrência de pitches convincentes {startup.quantity_of_occurrence_convincing_pitches}")
-        print(f"Quantidade de ocorrência de bugs {startup.quantity_of_occurrence_bugs}")
-        print(f"Quantidade de ocorrência de tração de usuários {startup.quantity_of_occurrence_user_traction}")
-        print(f"Quantidade de ocorrência de investidores irritados {startup.quantity_of_occurrence_angry_investors}")
-        print(f"Quantidade de ocorrência de pitches com fake news {startup.quantity_of_occurrence_pitches_with_fakenews}")
         
         count = 1
         for event in StartUpEvents.events:
@@ -215,13 +210,7 @@ class App:
         Tournament.show_tournament_title()
         Option.add_title_of_menu("Relatório do torneio")
        
-        for startup in self.tournament.startups:
-            print(f"\033[91m{startup.name} -> {startup.score} pontos\033[0m")
-            print(f"Quantidade de ocorrência de pitches convincentes {startup.quantity_of_occurrence_convincing_pitches}")
-            print(f"Quantidade de ocorrência de bugs {startup.quantity_of_occurrence_bugs}")
-            print(f"Quantidade de ocorrência de tração de usuários {startup.quantity_of_occurrence_user_traction}")
-            print(f"Quantidade de ocorrência de investidores irritados {startup.quantity_of_occurrence_angry_investors}")
-            print(f"Quantidade de ocorrência de pitches com fake news {startup.quantity_of_occurrence_pitches_with_fakenews}")
+        StartUp.table(self.tournament.startups)
             
         Option.add_option(1, "Voltar ao menu inicial")
         Option.add_option(2, "Sair")

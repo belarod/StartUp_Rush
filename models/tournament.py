@@ -10,6 +10,7 @@ class Tournament:
     def __init__(self):
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#TODO test 8
         self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
+        self.startups_out_of_tournament = []
         #self.startups = []
         self.battles = []
         self.winner = []
@@ -132,6 +133,8 @@ class Tournament:
     def is_there_winner(self):
         if len(self.startups) == 1:
             self.winner.append(self.startups[0])
+            for startup_out_of_tournament in self.startups_out_of_tournament:
+                self.startups.append(startup_out_of_tournament)
             return True
         else:
             return False
@@ -141,6 +144,7 @@ class Tournament:
         
     def remove_startup_loser(self, startup:StartUp):
         self.startups.remove(startup)
+        self.startups_out_of_tournament.append(startup)
         
     def add_startup_winner(self, startup:StartUp):
         self.startups.append(startup)
