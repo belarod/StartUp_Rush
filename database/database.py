@@ -25,6 +25,14 @@ class DB:
                 quantity_of_occurrence_pitches_with_fakenews INT DEFAULT 0
             )
             ''')
+        
+        cur.execute('''
+            CREATE TABLE IF NOT EXISTS event (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title_of_event TEXT,
+                points INT
+            )
+            ''')
         self.connection.commit()  
         cur.close()
         
@@ -33,5 +41,13 @@ class DB:
 
         cur.execute('''INSERT INTO startup (name, slogan, year_of_foundation, score) VALUES (?, ?, ?, ?)''',
                     (startup.name, startup.slogan, startup.year_of_foundation, startup.score))
+        self.connection.commit()
+        cur.close()
+        
+    def create_event(self, event):
+        cur = self.connection.cursor()
+
+        cur.execute('''INSERT INTO event (title_of_event, points) VALUES (?, ?)''',
+                    (event.title_of_event, event.points))
         self.connection.commit()
         cur.close()

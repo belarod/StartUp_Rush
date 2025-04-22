@@ -1,5 +1,7 @@
 from utils.option import Option
 from utils.utils import Utils
+
+from database.database import DB
 class StartUpEvents:
         events = []
         
@@ -16,7 +18,12 @@ class StartUpEvents:
         def create_event(index, title_of_events, points):
                 event = StartUpEvents(title_of_events, points)
                 StartUpEvents.events.append(event)
+                ##inserir evento no banco de dados
+                DB.create_event(event)
                 return Option.add_option(index, event.title_of_event+f" ({event.points} pontos)") and event
+        
+        def show_events(self):
+                pass
         
         def evaluate_according_to_event(startup, event):
                 if event.title_of_event in startup.events_done:

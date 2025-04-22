@@ -52,7 +52,8 @@ class App:
         Option.add_option(1, "Cadastrar StartUp")
         Option.add_option(2, "Remover StartUp") 
         Option.add_option(3, "Iniciar Torneio")
-        Option.add_option(4, "Voltar ao menu inicial")
+        Option.add_option(4, "Criar evento surpresa!")
+        Option.add_option(5, "Voltar ao menu inicial")
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
         if chosen_option == 1:
@@ -66,7 +67,9 @@ class App:
                 print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
                 Utils.press_to_continue("Pressione uma tecla para continuar...")
                 self.show_manage_startups_menu()
-        if chosen_option == 4:
+        if chosen_option == 4: 
+            pass
+        if chosen_option == 5:
             self.show_initializing_menu()
             
     def show_register_startup_menu(self):
