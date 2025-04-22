@@ -4,7 +4,7 @@ from utils.utils import Utils
 from models.tournament import Tournament
 from models.startup import StartUp
 from models.startup_events import StartUpEvents
-from database.database import DB
+#from database.database import DB
 
 class App:
     _instance = None
@@ -18,21 +18,21 @@ class App:
 
     standard_events= [evt1, evt2, evt3, evt4, evt5]
     
-    def __new__(cls, db):
+    def __new__(cls):
         if cls._instance is None:
             cls._instance = super(App, cls).__new__(cls)
         return cls._instance
     
-    def __init__(self, db):
+    def __init__(self):
         if not self._initialized:
             self._initialized = True
-            self.db = db
+            #self.db = db
             self.tournament = Tournament()
             self.current_battle = None
     
     def start_app(self):
-        #self.show_initializing_menu() 
-        self.show_manage_startups_menu() #teste
+        self.show_initializing_menu() 
+        #self.show_manage_startups_menu() #teste
         #self.show_register_startup_menu() #teste
         
     def exit_app(self):
@@ -90,7 +90,7 @@ class App:
         year_of_foundation = StartUp.input_startup_year_of_foundation()
         
         startup = StartUp(name, slogan, year_of_foundation)
-        DB.create_startup(self.db, startup)
+        #DB.create_startup(self.db, startup)
         Tournament.register_startup(self.tournament, startup)
         Utils.press_to_continue("Pressione uma tecla para continuar...")
         self.show_manage_startups_menu()
@@ -121,7 +121,6 @@ class App:
             points = StartUpEvents.input_points()
             event = StartUpEvents(title_of_event, points)
             StartUpEvents.create_event(title_of_event, points)
-            self.db.create_event(event)
         if chosen_option == 2:
             self.show_manage_startups_menu()
         
@@ -174,6 +173,11 @@ class App:
     def show_startup_evaluation_menu(self, startup:StartUp):
         Tournament.show_tournament_title()
         Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
+        print(f"Quantidade de ocorrência de pitches convincentes {startup.quantity_of_occurrence_convincing_pitches}")
+        print(f"Quantidade de ocorrência de bugs {startup.quantity_of_occurrence_bugs}")
+        print(f"Quantidade de ocorrência de tração de usuários {startup.quantity_of_occurrence_user_traction}")
+        print(f"Quantidade de ocorrência de investidores irritados {startup.quantity_of_occurrence_angry_investors}")
+        print(f"Quantidade de ocorrência de pitches com fake news {startup.quantity_of_occurrence_pitches_with_fakenews}")
         
         count = 1
         for event in StartUpEvents.events:
@@ -186,7 +190,7 @@ class App:
         if chosen_option == len(StartUpEvents.events)+1:
             self.show_battle_management_menu()
         else:
-            StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1])
+            StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1], chosen_option-1)
             self.show_startup_evaluation_menu(startup) 
             
     def show_tournament_results_menu(self):
@@ -205,4 +209,24 @@ class App:
             Tournament.reset_tournament(self.tournament)
             self.show_initializing_menu()
         if chosen_option == 3:
+            self.exit_app()
+            
+    def show_tournament_report_menu(self):
+        Tournament.show_tournament_title()
+        Option.add_title_of_menu("Relatório do torneio")
+       
+        for startup in self.tournament.startups:
+            print(f"\033[91m{startup.name} -> {startup.score} pontos\033[0m")
+            print(f"Quantidade de ocorrência de pitches convincentes {startup.quantity_of_occurrence_convincing_pitches}")
+            print(f"Quantidade de ocorrência de bugs {startup.quantity_of_occurrence_bugs}")
+            print(f"Quantidade de ocorrência de tração de usuários {startup.quantity_of_occurrence_user_traction}")
+            print(f"Quantidade de ocorrência de investidores irritados {startup.quantity_of_occurrence_angry_investors}")
+            print(f"Quantidade de ocorrência de pitches com fake news {startup.quantity_of_occurrence_pitches_with_fakenews}")
+            
+        Option.add_option(1, "Voltar ao menu inicial")
+        Option.add_option(2, "Sair")
+        chosen_option = Option.choose_option("Escolha uma opção: ")
+        if chosen_option == 1:
+            self.show_initializing_menu()
+        if chosen_option == 2:
             self.exit_app()

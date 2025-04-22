@@ -4,11 +4,11 @@ from models.startup_events import StartUpEvents
 
 class StartUp:
     def __init__(self,
-                name:str,#criando
-                slogan:str,#criando
-                year_of_foundation:int,#criando
-                score: int = 70,#criando
-                quantity_of_occurrence_pitches: int = 0,#inserindo
+                name:str,
+                slogan:str,
+                year_of_foundation:int,
+                score: int = 70,
+                quantity_of_occurrence_convincing_pitches: int = 0,#inserindo
                 quantity_of_occurrence_bugs: int = 0,#inserindo
                 quantity_of_occurrence_user_traction: int = 0,#inserindo
                 quantity_of_occurrence_angry_investors: int = 0,#inserindo
@@ -19,7 +19,7 @@ class StartUp:
         self.year_of_foundation = year_of_foundation
         
         self.score = score
-        self.quantity_of_occurrence_pitches = quantity_of_occurrence_pitches
+        self.quantity_of_occurrence_convincing_pitches = quantity_of_occurrence_convincing_pitches
         self.quantity_of_occurrence_bugs = quantity_of_occurrence_bugs
         self.quantity_of_occurrence_user_traction = quantity_of_occurrence_user_traction
         self.quantity_of_occurrence_angry_investors = quantity_of_occurrence_angry_investors

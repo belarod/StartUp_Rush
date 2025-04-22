@@ -47,13 +47,6 @@ class DB:
         self.connection.commit()
         cur.close()
         
-    def delete_startup(self, startup_name):###
-        cur = self.connection.cursor()
-
-        cur.execute('''DELETE FROM startup WHERE id = ?''', (startup_name,))
-        self.connection.commit()
-        cur.close()
-        
     def create_event(self, event):
         cur = self.connection.cursor()
 
