@@ -2,9 +2,7 @@ from utils.option import Option
 from utils.utils import Utils
 from models.tournament import Tournament
 from models.startup import StartUp
-from models.battle import Battle
 from models.startup_events import StartUpEvents
-from models.startup import StartUp
 
 class App:
     _instance = None
@@ -60,7 +58,12 @@ class App:
         if chosen_option == 2:
             self.show_remove_startup_menu()
         if chosen_option == 3:
-            self.show_tournament_menu()
+            if Tournament.is_registered_startups_even(self.tournament) and len(self.tournament) >= 4 and len(self.tournament) <= 8:
+                self.show_tournament_menu()
+            else:
+                print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
+                Utils.sleep(2)
+                self.show_manage_startups_menu()
         if chosen_option == 4:
             self.show_initializing_menu()
             
@@ -88,23 +91,24 @@ class App:
         self.show_manage_startups_menu()
         
     def show_tournament_menu(self):
-        if Tournament.is_registered_startups_even(self.tournament) and len(self.tournament) >= 4 and len(self.tournament) <= 8:
-            Tournament.show_tournament_title()
-            Option.add_title_of_menu("Torneio")
+        if Tournament.is_there_winner(self.tournament):
+            winner = Tournament.get_winner(self.tournament)#TODO resultado da batalha
+            print(f"\033[92mParabéns, {winner.name}! Você venceu o torneio!\033[0m")
+            Utils.sleep(5)
+            self.show_tournament_results_menu()
+    
+        Tournament.show_tournament_title()
+        Option.add_title_of_menu("Torneio")
+        
+        battles = Tournament.generate_battle_pairs(self.tournament)
+        count = 1
+        for battle in battles:
+            Option.add_option(count, str(battle))
+            count += 1
             
-            battles = Tournament.generate_battle_pairs(self.tournament)
-            count = 1
-            for battle in battles:
-                Option.add_option(count, str(battle))
-                count += 1
-                
-            chosen_option = Option.choose_option("Escolha a batalha a ser gerenciada: ")
-            self.current_battle = battles[chosen_option - 1]
-            self.show_battle_management_menu()
-        else:
-            print("Número de startups registradas deve ser par! Mínimo 4, máximo 8.")
-            Utils.sleep(2)
-            self.show_manage_startups_menu()
+        chosen_option = Option.choose_option("Escolha a batalha a ser gerenciada: ")
+        self.current_battle = battles[chosen_option - 1]
+        self.show_battle_management_menu()
             
     def show_battle_management_menu(self):
         Tournament.show_tournament_title()
@@ -147,3 +151,20 @@ class App:
             StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1])
             self.show_startup_evaluation_menu(startup) 
             
+    def show_tournament_results_menu(self):
+        winner = Tournament.get_winner(self.tournament)
+        Tournament.show_tournament_title()
+        Option.add_title_of_menu(f"->{winner.slogan} // {winner.name} é vencedor!")
+        
+        Option.add_option(1, "Mostrar relatório do torneio")
+        Option.add_option(2, "Voltar ao menu inicial")
+        Option.add_option(3, "Sair")
+        chosen_option = Option.choose_option("Escolha uma opção: ")
+        if chosen_option == 1:
+            self.show_tournament_report_menu()
+            chosen_option = Option.choose_option("RELATORIO")
+        if chosen_option == 2:
+            Tournament.reset_tournament(self.tournament)
+            self.show_initializing_menu()
+        if chosen_option == 3:
+            self.exit_app()

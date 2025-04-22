@@ -14,7 +14,7 @@ class Tournament:
         self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #TODO test 4
         #self.startups = [self.startup1, self.startup2, self.startup3] #TODO test -4 registradas
         self.battles = []
-        self.winner = [] #TODO
+        self.winner = []
         self.round_in_progress = False
         
     startup1 = StartUp("Startup 1", "Slogan 1", 2020)
@@ -31,6 +31,12 @@ class Tournament:
        
     def list_startups(self):
         return self.startups
+    
+    def reset_tournament(self):
+        self.startups.clear()
+        self.battles.clear()
+        self.winner.clear()
+        self.round_in_progress = False
             
     def show_list_startups(self):
         count = 1
@@ -69,8 +75,9 @@ class Tournament:
             
     def generate_battle_pairs(self): #TODO
         if self.round_in_progress:
-            return self.battles  # Não gera novas batalhas se a rodada estiver em andamento
-    
+            return self.battles 
+
+        self.battles.clear()
         random.shuffle(self.startups)
         for startup_index in range(0, len(self.startups), 2):
             if startup_index + 1 < len(self.startups):
@@ -89,16 +96,20 @@ class Tournament:
             
         elif startup1.score > startup2.score: 
             self.remove_startup_loser(startup2)
-            self.add_startup_winner(startup1)
             
             print(f"\033[92m{startup1.name} venceu!\033[0m")   
         elif startup1.score < startup2.score:   
             self.remove_startup_loser(startup1)
-            self.add_startup_winner(startup2)
             
             print(f"\033[92m{startup2.name} venceu!\033[0m")
         
         self.battles = list(filter(lambda b: b != battle, self.battles))
+        
+        if not self.battles:
+            self.round_in_progress = False
+            
+        if len(self.startups) == 1:
+            self.winner.append(self.startups[0])
         
     def show_existing_battles(self):#TODO
         count = 1
@@ -108,8 +119,8 @@ class Tournament:
         return self.battles
         
     def do_shark_fight(self, battle:Battle):
-        winner = random.randint(0,1)
-        battle.get_tuple()[winner].score += 2
+        shark_winner = random.randint(0,1)
+        battle.get_tuple()[shark_winner].score += 2
             
     def is_there_winner(self):
         if len(self.startups) == 1:
@@ -117,6 +128,9 @@ class Tournament:
             return True
         else:
             return False
+        
+    def get_winner(self):
+        return self.winner[0]
         
     def remove_startup_loser(self, startup:StartUp):
         self.startups.remove(startup)
