@@ -4,6 +4,7 @@ from utils.utils import Utils
 from models.tournament import Tournament
 from models.startup import StartUp
 from models.startup_events import StartUpEvents
+from database.database import DB
 
 class App:
     _instance = None
@@ -89,6 +90,7 @@ class App:
         year_of_foundation = StartUp.input_startup_year_of_foundation()
         
         startup = StartUp(name, slogan, year_of_foundation)
+        DB.create_startup(self.db, startup)
         Tournament.register_startup(self.tournament, startup)
         Utils.press_to_continue("Pressione uma tecla para continuar...")
         self.show_manage_startups_menu()
@@ -100,6 +102,7 @@ class App:
         
         index = Option.choose_option("Escolha uma opção: ")
         Tournament.remove_startup(self.tournament, index)
+        #funcao DB.remove
         Utils.press_to_continue("Pressione uma tecla para continuar...")
         self.show_manage_startups_menu()
         

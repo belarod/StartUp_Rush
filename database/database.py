@@ -17,12 +17,15 @@ class DB:
                 name TEXT,
                 slogan TEXT,
                 year_of_foundation INT,
-                score INT,
-                quantity_of_occurrence_convincing_pitches INT DEFAULT 0,
-                quantity_of_occurrence_bugs INT DEFAULT 0,
-                quantity_of_occurrence_user_traction INT DEFAULT 0,
-                quantity_of_occurrence_angry_investors INT DEFAULT 0,
-                quantity_of_occurrence_pitches_with_fakenews INT DEFAULT 0
+                score INT
+            )
+            ''')
+        
+        cur.execute('''
+            CREATE TABLE IF NOT EXISTS startup_event (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                startup TEXT,
+                event INT
             )
             ''')
         
@@ -44,10 +47,25 @@ class DB:
         self.connection.commit()
         cur.close()
         
+    def delete_startup(self, startup_name):###
+        cur = self.connection.cursor()
+
+        cur.execute('''DELETE FROM startup WHERE id = ?''', (startup_name,))
+        self.connection.commit()
+        cur.close()
+        
     def create_event(self, event):
         cur = self.connection.cursor()
 
         cur.execute('''INSERT INTO event (title_of_event, points) VALUES (?, ?)''',
                     (event.title_of_event, event.points))
+        self.connection.commit()
+        cur.close()
+        
+    def insert_startup_event(self, startup_name, event_id): ##corrigir
+        cur = self.connection.cursor()
+
+        cur.execute('''INSERT INTO startup_event (startup, event) VALUES (?, ?)''',
+                    (startup_name, event_id))
         self.connection.commit()
         cur.close()
