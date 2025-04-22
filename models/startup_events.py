@@ -1,7 +1,6 @@
 from utils.option import Option
 from utils.utils import Utils
 
-from database.database import DB
 class StartUpEvents:
         events = []
         
@@ -10,17 +9,24 @@ class StartUpEvents:
                      points:int = 0):
                 self.title_of_event = title_of_event
                 self.points = points
+                
+        @staticmethod
+        def input_title_of_event():
+                title_of_event = input("Título do evento: ")
+                return title_of_event
+        
+        def input_points():
+                points = Utils.int_input_accepts_negative("Pontos: ")#n aceita 0 nem num negativo
+                return points
 
         @staticmethod
         def list_startup_events(self):
                 return self.events
         
-        def create_event(index, title_of_events, points):
+        def create_event(title_of_events, points):
                 event = StartUpEvents(title_of_events, points)
                 StartUpEvents.events.append(event)
-                ##inserir evento no banco de dados
-                DB.create_event(event)
-                return Option.add_option(index, event.title_of_event+f" ({event.points} pontos)") and event
+                return event
         
         def show_events(self):
                 pass
@@ -28,10 +34,11 @@ class StartUpEvents:
         def evaluate_according_to_event(startup, event):
                 if event.title_of_event in startup.events_done:
                         print(f"\033[91m{event.title_of_event} já foi feito!\033[0m")
-                        Utils.sleep(2)
+                        Utils.press_to_continue("Pressione uma tecla para continuar...")
                         return
                 else:
                         startup.score += event.points
                         startup.events_done.append(event.title_of_event)
-                        print(f"\033[92m{event.title_of_event}, {event.points} pontos!\033[0m")
-                        Utils.sleep(2)       
+                        print(f"\033[92m{event.title_of_event}, {event.points} pontos!\033[0m") 
+                        Utils.press_to_continue("Pressione uma tecla para continuar...")
+                        

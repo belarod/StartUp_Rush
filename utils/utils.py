@@ -38,3 +38,17 @@ class Utils:
             except:
                 continue
         return result
+    
+    def int_input_accepts_negative(msg):##
+        valid_option = False
+        result = None
+        
+        while not valid_option:
+            try:
+                value = input(msg)
+                result = int(value)
+                valid_option = True
+                
+            except:
+                continue
+        return result

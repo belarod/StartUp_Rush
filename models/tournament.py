@@ -71,6 +71,9 @@ class Tournament:
             return False
             
     def generate_battle_pairs(self): #TODO
+        for startup in self.startups:
+            startup.events_done.clear()
+        
         if self.round_in_progress:
             return self.battles 
 
@@ -123,7 +126,7 @@ class Tournament:
     def do_shark_fight(self, battle:Battle):
         shark_winner = random.randint(0,1)
         battle.get_tuple()[shark_winner].score += 2
-        print("\033[31mSHARK FIGHT!!!\033[0m")
+        print("\033[31mEMPATE -> SHARK FIGHT!!!\033[0m")
             
     def is_there_winner(self):
         if len(self.startups) == 1:

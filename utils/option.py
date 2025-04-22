@@ -9,8 +9,8 @@ class Option:
         
     def choose_option(msg):
         option = input(msg)
-        if option.strip() == "":
-            print('Entrada vazia. Por favor, digite um número correspondente do menu numérico.')
+        if option.strip() == "" or option.isdigit() == False:
+            print('Digite um número correspondente do menu numérico.')
             return Option.choose_option(msg)
         option = int(option)
         if option > 0 and option in range(1, len(Option.list_options) + 1):
