@@ -16,7 +16,7 @@ class StartUpEvents:
                 return title_of_event
         
         def input_points():
-                points = Utils.int_input_accepts_negative("Pontos: ")#n aceita 0 nem num negativo
+                points = Utils.int_input_accepts_negative("Pontos: ")
                 return points
 
         def list_startup_events(self):

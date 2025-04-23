@@ -10,9 +10,9 @@ class Tournament:
     def __init__(self):
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4, self.startup5, self.startup6, self.startup7, self.startup8]#test 8
         #self.startups = [self.startup1, self.startup2, self.startup3, self.startup4] #test 4
-        self.startups = [self.startup1, self.startup2] #test 2
+        #self.startups = [self.startup1, self.startup2] #test 2
         self.startups_out_of_tournament = []
-        #self.startups = []
+        self.startups = []
         self.battles = []
         self.winner = []
         self.round_in_progress = False
@@ -73,7 +73,7 @@ class Tournament:
         else:
             return False
             
-    def generate_battle_pairs(self): #TODO
+    def generate_battle_pairs(self):
         for startup in self.startups:
             startup.events_done.clear()
         

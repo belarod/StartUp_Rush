@@ -9,11 +9,11 @@ class StartUp:
                 slogan:str,
                 year_of_foundation:int,
                 score: int = 70,
-                quantity_of_occurrence_convincing_pitches: int = 0,#inserindo
-                quantity_of_occurrence_bugs: int = 0,#inserindo
-                quantity_of_occurrence_user_traction: int = 0,#inserindo
-                quantity_of_occurrence_angry_investors: int = 0,#inserindo
-                quantity_of_occurrence_pitches_with_fakenews: int = 0#inserindo
+                quantity_of_occurrence_convincing_pitches: int = 0,
+                quantity_of_occurrence_bugs: int = 0,
+                quantity_of_occurrence_user_traction: int = 0,
+                quantity_of_occurrence_angry_investors: int = 0,
+                quantity_of_occurrence_pitches_with_fakenews: int = 0
                 ):
         self.name = name
         self.slogan = slogan
