@@ -7,14 +7,9 @@ O projeto foi feito para a seleção para o IT Academy, da PUC/DELL. Para ser en
 
 ## Necessário instalar:
 
-Baixar e instalar o Python 3.13, para verificar a instalação, no terminal, digite: 
+Baixar e instalar o Python (preferencialmente o 3.13), para verificar a instalação, no terminal, digite: 
 ```bash
   py --version
-```
-
-Também é necessario baixar com o gerenciador de pacotes (PIP) a biblioteca Tabulate, para futura exibição de tabelas no programa.
-```bash
-  pip install tabulate
 ```
     
 ## Rodando o projeto
@@ -26,7 +21,18 @@ Para baixar o projeto, pode baixar o .zip no GitHub e descompactar , ou rodar no
 
 Após, na pasta, abrir o terminal e rodar:
 ```bash
-  py -3.13 main.py
+  python -m venv venv
+  .\venv\Scripts\activate
+```
+isso criará um ambiente virual.
+
+Para instalar as dependências:
+```bash
+  pip install -r requirements.txt
+```
+para abrir o aplicativo, rode:
+```bash
+  py main.py
 ```
 
 E aproveitar!
