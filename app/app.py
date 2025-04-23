@@ -173,17 +173,17 @@ class App:
         Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
         
         count = 1
-        for event in StartUpEvents.events:
+        for event in StartUpEvents.events: #para cada evento criado, a lista do menu de eventos aumenta, ficando muito flexivel!
             Option.add_option(count, f"{event.title_of_event} -> {event.points} pontos")
             count += 1
-        Option.add_option(len(StartUpEvents.events)+1, "Voltar ao gerenciamento da batalha") # :D
+        Option.add_option(len(StartUpEvents.events)+1, "Voltar ao gerenciamento da batalha") #aqui, deixa o botao de sair como ultimo item da lista, independente do tamanho! :D
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
         
-        if chosen_option == len(StartUpEvents.events)+1:
+        if chosen_option == len(StartUpEvents.events)+1: #se for selecionada a ultima opção, volta para o gerenciamento da batalha!!
             self.show_battle_management_menu()
         else:
-            StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1], chosen_option-1)
+            StartUpEvents.evaluate_according_to_event(startup, StartUpEvents.events[chosen_option-1], chosen_option-1)#aqui avalia de acordo com o evento da lista flexível acima!
             self.show_startup_evaluation_menu(startup) 
             
     def show_tournament_results_menu(self):
