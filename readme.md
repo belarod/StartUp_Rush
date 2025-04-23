@@ -22,6 +22,8 @@ Para baixar o projeto, pode baixar o .zip no GitHub e descompactar , ou rodar no
 Após, na pasta, abrir o terminal e rodar:
 ```bash
   python -m venv venv
+```
+```bash
   .\venv\Scripts\activate
 ```
 isso criará um ambiente virual.
