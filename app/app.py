@@ -163,14 +163,12 @@ class App:
         if chosen_option == 2:
             self.show_startup_evaluation_menu(startup2)
         if chosen_option == 3:
-            Tournament.calculate_battle_winner(self.tournament, self.current_battle)#TODO resultado da batalha
+            Tournament.calculate_battle_winner(self.tournament, self.current_battle)
             self.current_battle = None
             Utils.press_to_continue("Pressione uma tecla para continuar...")
-            self.show_tournament_menu()
-            
-            
+            self.show_tournament_menu()    
         
-    def show_startup_evaluation_menu(self, startup:StartUp):
+    def show_startup_evaluation_menu(self, startup:StartUp): #TODO destaque para video
         Tournament.show_tournament_title()
         Option.add_title_of_menu(f"Avaliação da StartUp {startup.name} -> Score:{startup.score}")
         
@@ -178,7 +176,7 @@ class App:
         for event in StartUpEvents.events:
             Option.add_option(count, f"{event.title_of_event} -> {event.points} pontos")
             count += 1
-        Option.add_option(len(StartUpEvents.events)+1, "Voltar ao gerenciamento da batalha")
+        Option.add_option(len(StartUpEvents.events)+1, "Voltar ao gerenciamento da batalha") # :D
         
         chosen_option = Option.choose_option("Escolha uma opção: ")
         

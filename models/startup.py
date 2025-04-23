@@ -67,11 +67,11 @@ class StartUp:
             "\033[91mSlogan\033[0m", 
             "\033[91mAno\033[0m", 
             "\033[91mScore\033[0m", 
-            "\033[91mPitches Convincentes\033[0m", 
+            "\033[91mPitches Conv.\033[0m", 
             "\033[91mBugs\033[0m", 
-            "\033[91mTração de Usuários\033[0m", 
-            "\033[91mInvestidores Irritados\033[0m", 
-            "\033[91mFakenews no Pitch\033[0m"
+            "\033[91mTração de Users\033[0m", 
+            "\033[91mInv. Irritados\033[0m", 
+            "\033[91mFakenews\033[0m"
         ]
         
         print(tabulate(table_data, headers=headers, tablefmt="grid"))

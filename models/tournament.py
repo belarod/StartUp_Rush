@@ -17,14 +17,14 @@ class Tournament:
         self.winner = []
         self.round_in_progress = False
         
-    startup1 = StartUp("NeuraTech", "Conectando ideias ao futuro", 2020)
-    startup2 = StartUp("AgroPulse", "Tecnologia que cultiva resultados", 2021)  
-    startup3 = StartUp("EcoSphere", "Soluções verdes para um mundo melhor", 2022)
-    startup4 = StartUp("ByteBridge", "Ligando inovação e transformação", 2021)  
-    startup5 = StartUp("NovaMind", "Criando inteligência para o amanhã", 2024)
-    startup6 = StartUp("SkyLedger", "Transparência nas alturas", 2025)
-    startup7 = StartUp("HealthSync", "Conectando dados, salvando vidas", 2025)
-    startup8 = StartUp("UrbanFlow", "Mobilidade inteligente, cidades eficientes", 2024)
+    startup1 = StartUp("NeuraTech DEMO", "Conectando ideias ao futuro", 2020)
+    startup2 = StartUp("AgroPulse DEMO", "Tecnologia que cultiva resultados", 2021)  
+    startup3 = StartUp("EcoSphere DEMO", "Soluções verdes para um mundo melhor", 2022)
+    startup4 = StartUp("ByteBridge DEMO", "Ligando inovação e transformação", 2021)  
+    startup5 = StartUp("NovaMind DEMO", "Criando inteligência para o amanhã", 2024)
+    startup6 = StartUp("SkyLedger DEMO", "Transparência nas alturas", 2025)
+    startup7 = StartUp("HealthSync DEMO", "Conectando dados, salvando vidas", 2025)
+    startup8 = StartUp("UrbanFlow DEMO", "Mobilidade inteligente, cidades eficientes", 2024)
 
     def __len__(self):
         return len(self.startups)
